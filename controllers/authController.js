@@ -9,7 +9,11 @@ exports.login = catchAsync(async (req, res, next) => {
 })
 
 exports.signup = catchAsync(async (req, res, next) => {
-    res.status(200).json({
-        user
+    const user = await User.create(req.body)
+    
+    res.status(201).json({
+        data: {
+            user
+        }
     })
 });
