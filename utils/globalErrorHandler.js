@@ -20,6 +20,8 @@ module.exports = (err, req, res, next) => {
 
     err.statusCode = err.statusCode || 500;
 
+    // TODO: handle different errors from mongoose
+
     if (process.env.NODE_ENV === 'development'){
         handleDevelopmentError(err, res)
     } else {

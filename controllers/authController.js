@@ -10,7 +10,9 @@ exports.login = catchAsync(async (req, res, next) => {
 
 exports.signup = catchAsync(async (req, res, next) => {
     const user = await User.create(req.body)
-    
+
+    user.password = undefined;
+
     res.status(201).json({
         data: {
             user
