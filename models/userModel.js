@@ -66,6 +66,12 @@ userSchema.pre('save', async function(next) {
 });
 
 
+/* Instance Methods ('this' refers to the current document) */
+
+userSchema.methods.verifyPassword = async function(password) {
+    return await bcrypt.compare(password, this.password);
+}
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
