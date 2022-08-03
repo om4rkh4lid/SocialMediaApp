@@ -47,7 +47,10 @@ const userSchema = new mongoose.Schema({
             message: 'Passwords don\'t match. Please try again.'
         }
     },
-    passwordLastChangedAt: Date
+    passwordLastChangedAt: {
+        type: Date,
+        select: false
+    }
 });
 
 /* Document Middleware ('this' refers to the current document) */
@@ -70,6 +73,16 @@ userSchema.pre('save', async function(next) {
 
 userSchema.methods.verifyPassword = async function(password) {
     return await bcrypt.compare(password, this.password);
+}
+
+userSchema.methods.changedPasswordAfter = function(issuedAt) {
+    // password has not changed since the user was created
+    if (!this.passwordLastChangedAt) return false;
+    
+    // issuedAt -> in seconds, passwordLastChangedAt -> in milliseconds
+    let tokenIssuedAt = issuedAt * 1000;
+
+    return tokenIssuedAt < this.passwordLastChangedAt.getTime();
 }
 
 const User = mongoose.model('User', userSchema);

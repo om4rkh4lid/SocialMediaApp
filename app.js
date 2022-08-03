@@ -17,6 +17,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/signup', auth.signup);
 app.post('/login', auth.login);
 
+app.get('/test', auth.protect, (req, res) => {
+    res.status(201).json({
+        message: 'Success'
+    })
+})
+
 // Global error handler
 app.use(globalErrorHandler);
 
