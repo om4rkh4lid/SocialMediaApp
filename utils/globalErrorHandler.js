@@ -1,7 +1,6 @@
 const ApplicationError = require('./ApplicationError');
 
 const handleDevelopmentError = (err, res) => {
-    console.log(err.keyValue)
     return res.status(err.statusCode).json({
         error: {
             message: err.message,

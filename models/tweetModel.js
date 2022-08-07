@@ -33,6 +33,6 @@ const tweetSchema = new mongoose.Schema({
     }]
 })
 
-const Tweet = mongoose.Model('Tweet', tweetSchema)
+const Tweet = mongoose.model('Tweet', tweetSchema)
 
 module.exports = Tweet
