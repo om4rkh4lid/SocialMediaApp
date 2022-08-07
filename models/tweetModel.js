@@ -15,19 +15,22 @@ const tweetSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    replies: {
+    replies: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Tweet'
-    },
-    likes: {
+    }],
+    likes: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Like'
-    },
-    retweets: {
+    }],
+    retweets: [{
         type: mongoose.Schema.ObjectId,
         ref: 'Retweet'
-    },
-    // TODO: Add quote retweet functionality
+    }],
+    quoteRetweets: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Retweet'
+    }]
 })
 
 const Tweet = mongoose.Model('Tweet', tweetSchema)
