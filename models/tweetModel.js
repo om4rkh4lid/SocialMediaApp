@@ -17,7 +17,7 @@ const tweetSchema = new mongoose.Schema({
     },
     replies: [{
         type: mongoose.Schema.ObjectId,
-        ref: 'Tweet'
+        ref: 'Reply'
     }],
     likes: [{
         type: mongoose.Schema.ObjectId,
@@ -29,7 +29,7 @@ const tweetSchema = new mongoose.Schema({
     }],
     quoteRetweets: [{
         type: mongoose.Schema.ObjectId,
-        ref: 'Retweet'
+        ref: 'QuoteRetweet'
     }]
 })
 

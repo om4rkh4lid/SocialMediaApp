@@ -1,6 +1,11 @@
 const mongoose = require("mongoose");
 
-const quoteRetweetSchema = mongoose.Schema({
+const replySchema = mongoose.Schema({
+    on: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Tweet',
+        required: [true, 'A reply must be associated with a Tweet']
+    },
     on: {
         type: mongoose.Schema.ObjectId,
         ref: 'Tweet',
@@ -38,6 +43,6 @@ const quoteRetweetSchema = mongoose.Schema({
     }]
 })
 
-const QuoteRetweet = mongoose.Model('QuoteRetweet', quoteRetweetSchema)
+const Reply = mongoose.Model('Reply', replySchema)
 
-module.exports = QuoteRetweet
+module.exports = Reply

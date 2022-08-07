@@ -9,11 +9,15 @@ tweetsRouter.use(auth.protect);
 // create a tweet - POST /tweets
 tweetsRouter.post('/', tweetsController.createTweet);
 
+// TODO: show feed of tweets (from people you follow) - GET /tweets
 
-// like a tweet - POST /tweets/:id/likes
-// reply to a tweet - POST /tweets/:id/replies
-// quote a tweet - POST /tweets/:id/quote
-// retweet a tweet - POST /tweets/:id/retweets
+// TODO: like a tweet - POST /tweets/:id/likes
+
+// TODO: reply to a tweet - POST /tweets/:id/replies
+
+// TODO: quote a tweet - POST /tweets/:id/quote
+
+// TODO: retweet a tweet - POST /tweets/:id/retweets
 
 
 module.exports = tweetsRouter;
