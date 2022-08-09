@@ -10,6 +10,7 @@ usersRouter.use(auth.protect);
 usersRouter.get('/', userController.searchUsers);
 
 // TODO: follow a user - POST /users/:id/followers
+
 // TODO: unfollow a user - DELETE /users/:id/followers
 
 
