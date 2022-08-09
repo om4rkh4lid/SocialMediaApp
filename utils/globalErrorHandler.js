@@ -1,6 +1,7 @@
 const ApplicationError = require('./ApplicationError');
 
 const handleDevelopmentError = (err, res) => {
+    console.log(err);
     return res.status(err.statusCode).json({
         error: {
             message: err.message,
@@ -12,6 +13,11 @@ const handleDevelopmentError = (err, res) => {
 const validationError = err => {
     const message = Object.values(err.errors).map(element => element.message).join('. ')
     return new ApplicationError(400, `Invalid input data. ${message}`)
+}
+
+// when a string can't be properly cast to an ObjectId
+const castError = err => {
+    return new ApplicationError(400, `${err.value} is not a valid ID`)
 }
 
 const jwtError = () => new ApplicationError(401, `Invalid token. Please log in again.`)
@@ -26,20 +32,23 @@ const duplicateKeyError = err => {
 
 const handleProductionError = (err, res) => {
     // start with the original error value
-    let error = { ...err }
+    // let error = { ...err }
 
     if (err.code && err.code === 11000) {
-        error = duplicateKeyError(err);
+        err = duplicateKeyError(err);
     } else if (err.name) {
         switch (err.name) {
             case 'ValidationError':
-                error = validationError(err)
+                err = validationError(err)
+                break;
+            case 'CastError':
+                err = castError(err)
                 break;
             case 'JsonWebTokenError':
-                error = jwtError()
+                err = jwtError()
                 break;
             case 'TokenExpiredError':
-                error = tokenExpiredError()
+                err = tokenExpiredError()
                 break;
             default:
                 break;
@@ -47,9 +56,9 @@ const handleProductionError = (err, res) => {
     }
 
 
-    return res.status(error.statusCode).json({
+    return res.status(err.statusCode).json({
         error: {
-            message: error.message
+            message: err.message
         }
     })
 }
