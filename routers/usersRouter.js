@@ -1,4 +1,5 @@
 const auth = require('../controllers/authController');
+const followersController = require('../controllers/followersController');
 const User = require('../models/userModel');
 const userController = require('../controllers/userController');
 
@@ -9,9 +10,12 @@ usersRouter.use(auth.protect);
 // search for a user using their name or email - GET /users?q=
 usersRouter.get('/', userController.searchUsers);
 
-// TODO: follow a user - POST /users/:id/followers
+usersRouter
+    .route('/:id/followers')
+    .get(followersController.getFollowers)
+    .post(followersController.follow)
+    .delete(followersController.unfollow)
 
-// TODO: unfollow a user - DELETE /users/:id/followers
 
 
 module.exports = usersRouter;
