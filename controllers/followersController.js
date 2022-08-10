@@ -11,7 +11,7 @@ exports.follow = catchAsync(async (req, res, next) => {
     // make sure followedId exists
     const followedUser = await User.findById(followedId)
 
-    if (!followedUser) return next(new ApplicationError(400, 'User doesn\'t exist'))
+    if (!followedUser) return next(new ApplicationError(404, 'User doesn\'t exist'))
 
     await Followers.create({
         follower: req.user,
@@ -35,7 +35,7 @@ exports.getFollowers = catchAsync(async (req, res, next) => {
 exports.unfollow = catchAsync(async (req, res, next) => {
     const followedId = req.params.id
 
-    const relation = await Followers.deleteOne({ $and : [{ follower: req.user, followed: followedId }] })
+    const relation = await Followers.deleteOne({ $and : [{ follower: req.user}, {followed: followedId }] })
 
     if (relation.deletedCount == 0) return next(new ApplicationError(400, 'You can\'t unfollow someone you don\'t follow'));
 
@@ -48,7 +48,7 @@ exports.getFollowing = catchAsync(async (req, res, next) => {
     // make sure followedId exists
     const user = await User.findById(followerId)
 
-    if (!user) return next(new ApplicationError(400, 'User doesn\'t exist'))
+    if (!user) return next(new ApplicationError(404, 'User doesn\'t exist'))
 
     const followingRaw = await Followers.find({ follower: followerId }).select('-_id followed').populate('followed');
     const following = followingRaw.map(element => element.followed)

@@ -11,12 +11,15 @@ const likeSchema = mongoose.Schema({
         ref: 'User',
         required: [true, 'A like must be associated with a User']
     },
-    at: {
+    createdAt: {
         type: Date,
         default: Date.now()
     }
 })
 
-const Like = mongoose.Model('Like', likeSchema)
+// make sure that a like isn't duplicated and better lookups
+likeSchema.index({on: 1, by: 1}, {unique: true})
+
+const Like = mongoose.model('Like', likeSchema)
 
 module.exports = Like

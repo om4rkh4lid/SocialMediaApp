@@ -11,7 +11,7 @@ const retweetSchema = mongoose.Schema({
         ref: 'User',
         required: [true, 'A retweet must be associated with a User']
     },
-    at: {
+    createdAt: {
         type: Date,
         default: Date.now()
     }
