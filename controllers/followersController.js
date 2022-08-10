@@ -44,7 +44,12 @@ exports.unfollow = catchAsync(async (req, res, next) => {
 
 exports.getFollowing = catchAsync(async (req, res, next) => {
     const followerId = req.params.id
-    console.log(followerId);
+
+    // make sure followedId exists
+    const user = await User.findById(followerId)
+
+    if (!user) return next(new ApplicationError(400, 'User doesn\'t exist'))
+
     const followingRaw = await Followers.find({ follower: followerId }).select('-_id followed').populate('followed');
     const following = followingRaw.map(element => element.followed)
     res.status(200).json({
