@@ -10,6 +10,10 @@ const followerSchema = mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'User',
         required: [true, 'You must follow someone']
+    },
+    __v: {
+        type: Number,
+        select: false
     }
 });
 

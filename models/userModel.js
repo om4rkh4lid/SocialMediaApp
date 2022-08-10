@@ -50,6 +50,10 @@ const userSchema = new mongoose.Schema({
     passwordLastChangedAt: {
         type: Date,
         select: false
+    },
+    __v: {
+        type: Number,
+        select: false
     }
 });
 

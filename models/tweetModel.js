@@ -15,22 +15,10 @@ const tweetSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    replies: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'Reply'
-    }],
-    likes: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'Like'
-    }],
-    retweets: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'Retweet'
-    }],
-    quoteRetweets: [{
-        type: mongoose.Schema.ObjectId,
-        ref: 'QuoteRetweet'
-    }]
+    __v: {
+        type: Number,
+        select: false
+    }
 })
 
 const Tweet = mongoose.model('Tweet', tweetSchema)

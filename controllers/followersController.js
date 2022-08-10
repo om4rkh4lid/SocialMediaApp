@@ -24,7 +24,12 @@ exports.follow = catchAsync(async (req, res, next) => {
 });
 
 exports.getFollowers = catchAsync(async (req, res, next) => {
-
+    const followedId = req.params.id
+    const followersRaw = await Followers.find({ followed: followedId }).select('-_id follower').populate('follower');
+    const followers = followersRaw.map(element => element.follower)
+    res.status(200).json({
+        followersRaw
+    })
 });
 
 exports.unfollow = catchAsync(async (req, res, next) => {
@@ -36,3 +41,13 @@ exports.unfollow = catchAsync(async (req, res, next) => {
 
     res.sendStatus(204)
 });
+
+exports.getFollowing = catchAsync(async (req, res, next) => {
+    const followerId = req.params.id
+    console.log(followerId);
+    const followingRaw = await Followers.find({ follower: followerId }).select('-_id followed').populate('followed');
+    const following = followingRaw.map(element => element.followed)
+    res.status(200).json({
+        following
+    })
+})
