@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const ApplicationError = require('../utils/ApplicationError');
 
 const tweetSchema = new mongoose.Schema({
     content: {
@@ -15,10 +16,24 @@ const tweetSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
+    isReplyTo: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Tweet',
+    },
+    isQuoteTo: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Tweet'
+    },
     __v: {
         type: Number,
         select: false
     }
+})
+
+// Make sure that a tweet is not BOTH a reply and a quote
+tweetSchema.pre('save', function(next){
+    if (this.isQuoteTo && this.isReplyTo) return next(new ApplicationError(400, 'A tweet can\'t be both a reply and a quote'));
+    next();
 })
 
 const Tweet = mongoose.model('Tweet', tweetSchema)
