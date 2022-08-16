@@ -10,3 +10,5 @@ exports.createTweet = catchAsync(async (req, res, next) => {
     res.status(200).json(tweet);
     
 });
+
+// TODO: Delete a tweet and its replies, retweets, quotes, and likes
