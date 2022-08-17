@@ -17,6 +17,6 @@ const retweetSchema = mongoose.Schema({
     }
 })
 
-const Retweet = mongoose.Model('Retweet', retweetSchema)
+const Retweet = mongoose.model('Retweet', retweetSchema)
 
 module.exports = Retweet

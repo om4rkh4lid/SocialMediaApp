@@ -1,7 +1,8 @@
 const repliesController = require('../controllers/repliesController')
+const tweetsController = require('../controllers/tweetsController')
 const repliesRouter = require('express').Router({ mergeParams: true });
 
-repliesRouter.use(repliesController.validateTweetExists);
+repliesRouter.use(tweetsController.validateTweetExists);
 
 repliesRouter
     .route('/')

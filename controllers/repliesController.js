@@ -2,12 +2,6 @@ const Tweets = require('../models/tweetModel');
 const ApplicationError = require('../utils/ApplicationError');
 const catchAsync = require('../utils/catchAsync')
 
-exports.validateTweetExists = catchAsync(async (req, res, next) => {
-    const tweet = await Tweets.findById(req.params.id);
-    if (!tweet) return next(new ApplicationError(404, 'This tweet doesn\'t exist'));
-    next();
-})
-
 exports.addReply = catchAsync(async (req, res, next) => {
     const reply = await Tweets.create({
         content: req.body.content,

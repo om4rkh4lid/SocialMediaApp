@@ -1,7 +1,8 @@
 const quotesController = require('../controllers/quotesController')
+const tweetsController = require('../controllers/tweetsController')
 const quotesRouter = require('express').Router({ mergeParams: true });
 
-quotesRouter.use(quotesController.validateTweetExists);
+quotesRouter.use(tweetsController.validateTweetExists);
 
 quotesRouter
     .route('/')
