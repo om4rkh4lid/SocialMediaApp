@@ -17,6 +17,8 @@ const retweetSchema = mongoose.Schema({
     }
 })
 
+retweetSchema.index({on: 1, by: 1}, {unique: true})
+
 const Retweet = mongoose.model('Retweet', retweetSchema)
 
 module.exports = Retweet
