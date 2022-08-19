@@ -36,6 +36,13 @@ tweetSchema.pre('save', function(next){
     next();
 })
 
+tweetSchema.post('deleteMany', async function(docs, next){
+    const id = this._conditions['$or'][0]._id;
+    await mongoose.model('Like').deleteMany({ on: id })
+    await mongoose.model('Retweet').deleteMany({ on: id })
+    next();
+})
+
 const Tweet = mongoose.model('Tweet', tweetSchema)
 
 module.exports = Tweet

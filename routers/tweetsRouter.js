@@ -12,12 +12,14 @@ tweetsRouter.use(auth.protect);
 
 // create a tweet - POST /tweets
 tweetsRouter.post('/', tweetsController.createTweet);
+tweetsRouter.get('/', tweetsController.getTimeline);
+tweetsRouter.delete('/:id', tweetsController.validateTweetExists, tweetsController.deleteTweet);
 tweetsRouter.use('/:id/likes', likesRouter)
 tweetsRouter.use('/:id/retweets', retweetsRouter)
 tweetsRouter.use('/:id/replies', repliesRouter)
 tweetsRouter.use('/:id/quotes', quotesRouter)
 
-// TODO: show feed of tweets (from people you follow) - GET /tweets
+
 
 
 module.exports = tweetsRouter;
