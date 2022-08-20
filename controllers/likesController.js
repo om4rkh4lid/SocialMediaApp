@@ -7,7 +7,11 @@ const Tweet = require('../models/tweetModel');
 exports.like = catchAsync(async (req, res, next) => {
     const tweetId = req.params.id;
 
-    const like = await Likes.create({ on: tweetId, by: req.user._id });
+    const like = await Likes.create({
+        on: tweetId,
+        by: req.user._id,
+        createdAt: Date.now()
+    });
 
     res.sendStatus(201)
 });

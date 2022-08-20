@@ -6,7 +6,11 @@ const Retweets = require('../models/retweetModel');
 exports.retweet = catchAsync(async (req, res, next) => {
     const tweetId = req.params.id;
 
-    const retweet = await Retweets.create({ on: tweetId, by: req.user._id });
+    const retweet = await Retweets.create({
+        on: tweetId,
+        by: req.user._id,
+        createdAt: Date.now()
+    });
 
     res.status(201).json(retweet);
 });

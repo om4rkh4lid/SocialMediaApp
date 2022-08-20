@@ -6,7 +6,8 @@ exports.addQuote = catchAsync(async (req, res, next) => {
     const quote = await Tweets.create({
         content: req.body.content,
         author: req.user._id,
-        isQuoteTo: req.params.id
+        isQuoteTo: req.params.id,
+        createdAt: Date.now()
     });
     res.status(200).json(quote);
 });
